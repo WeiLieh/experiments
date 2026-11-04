@@ -10,6 +10,7 @@ One entry per session, newest first: Done / In progress / Next steps / Blockers.
 ### In progress
 - [2026-11-04 21:05 SGT] None.
 ### Next steps
+- [2026-11-04 21:19 SGT] Owner answered O3 (delete 30 days after the end) and O4 (messages as drafted, end message sent); renamed the statuses and added /stop. Waiting on: confirming tests (O5) and Q-A to Q-D in [SPEC.md](SPEC.md), section 9.
 - [2026-11-04 21:05 SGT] Owner: answer O3 (when data is deleted), O4 (edit the messages in section 5; send an "end of 7 days" message?), O5 (confirm the 18 tests) in [SPEC.md](SPEC.md), section 9.
 - [2026-11-04 21:05 SGT] Then Claude: set up the tools (TypeScript, tests, one lockfile), write the tests first, then build; then a step-by-step go-live guide (new Supabase project "experiments", Vercel project, Telegram bot, Supabase Cron).
 ### Blockers

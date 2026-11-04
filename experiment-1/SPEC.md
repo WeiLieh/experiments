@@ -19,6 +19,7 @@
 2. [2026-11-04 20:56 SGT] **Two Nudges a day for 7 days** at the parent's own times: morning **7, 8 or 9 am**, evening **7, 8 or 9 pm** (Singapore time), the same every day including weekends. Each Nudge has one button: **✅ Done**.
 3. [2026-11-04 20:56 SGT] **✅ Done within 30 minutes** → a thank-you; that Nudge is finished.
 4. [2026-11-04 20:56 SGT] **No ✅ Done after 30 minutes** → **one reminder**, also with ✅ Done.
+- [2026-11-04 21:19 SGT] **Steps 5 and 6 changed (owner, 4 Nov):** the statuses are renamed (rule E1.6), and parents get a **/stop** command (rule E1.13).
 5. [2026-11-04 20:56 SGT] **Still nothing 30 minutes after the reminder** → silence; recorded as "did not respond". A later tap is still recorded (status 3).
 6. [2026-11-04 20:56 SGT] **No way to stop inside the bot**, and no "Not today" button. A parent can still mute or block the bot in Telegram; a blocked bot's messages are recorded as "not delivered".
 7. [2026-11-04 20:56 SGT] **The owner starts the experiment** with one line in the Supabase SQL Editor, giving the start date. **Testing** uses a test mode and a reset (rules E1.10, E1.11).
@@ -29,7 +30,16 @@
 - **E1.3** [2026-11-04 20:56 SGT] Nudges only after **/start, a handle match and I agree**; before that, each Nudge due is recorded as "not started". *(was 12.3)*
 - **E1.4** [2026-11-04 20:56 SGT] Only a tap on **✅ Done** counts as a response; typed words do not. *(was 12.4)*
 - **E1.5** [2026-11-04 20:56 SGT] No ✅ Done within 30 minutes → exactly one reminder. *(was 12.5)*
-- **E1.6** [2026-11-04 20:56 SGT] **Every Nudge ends with exactly one status:** *(was 12.6; owner confirmed 4 Nov)*
+- **E1.6** [2026-11-04 21:19 SGT] **Every Nudge ends with exactly one status** (owner's names, 4 Nov; minutes counted from when the Nudge was sent):
+  1. **Acted on Nudge** (`acted_on_nudge`): ✅ Done up to and including 30:00.
+  2. **Did not act on Nudge. Acted on reminder** (`acted_on_reminder`): ✅ Done after 30:00, up to and including 60:00.
+  3. **Did not act on Nudge. Acted on reminder late** (`acted_late`): ✅ Done after 60:00, at any time until the experiment ends.
+  4. **Did not act on Nudge. Did not act on reminder** (`no_action`): no ✅ Done.
+  5. *(proposed)* **Not sent: hadn't started** (`not_started`): the parent hadn't joined (E1.3).
+  6. *(proposed)* **Not sent: Telegram refused** (`not_delivered`): for example, the bot was blocked. No reminder follows.
+  7. *(proposed)* **Stopped** (`stopped`): the parent had sent /stop (E1.13).
+  The status depends on **when** ✅ Done was tapped, not on which message's button was tapped. While the 60 minutes run, the Nudge shows **waiting**. The only change after that: 4 becomes 3 when a late tap arrives; both times are kept. A reminder Telegram refused is recorded separately; the status still follows the tap time.
+- SUPERSEDED [2026-11-04 21:19 SGT] **E1.6** [2026-11-04 20:56 SGT] **Every Nudge ends with exactly one status:** *(was 12.6; owner confirmed 4 Nov)*
   1. **Done on time:** ✅ Done within 30 minutes of the Nudge (30:00 exactly counts).
   2. **Done after reminder sent:** ✅ Done after the reminder, within 30 minutes of it.
   3. **Responded after 30 mins:** ✅ Done more than 30 minutes after the reminder (60+ minutes after the Nudge), at any time until the experiment ends.
@@ -43,14 +53,15 @@
 - **E1.10** [2026-11-04 20:56 SGT] **Reset for testing:** one SQL line clears all Nudges and events (test data); the parent list is kept. Only the owner's database login can run it, not the app. *(was 12.10; scope agreed 4 Nov)*
 - **E1.11** [2026-11-04 20:56 SGT] **Test mode:** windows are 2 minutes instead of 30, and the owner can send a Nudge to a parent now, to test with the facilitators. Switched off before the real start. *(new, agreed 4 Nov)*
 - **E1.12** [2026-11-04 20:56 SGT] **Starting:** one SQL line sets the start date (owner provides it later). *(new, agreed 4 Nov)*
-- **E1.13** [2026-11-04 20:56 SGT] No opt-out inside the bot (no /stop, no pause). *(was 12.11)*
+- **E1.13** [2026-11-04 21:19 SGT] **/stop** (owner, 4 Nov: a definitive signal). The bot confirms at once; no more Nudges or reminders. A Nudge still waiting at that moment, and every later one, ends as **Stopped**. The /stop time is recorded. *(changed 4 Nov)*
+- SUPERSEDED [2026-11-04 21:19 SGT] **E1.13** [2026-11-04 20:56 SGT] No opt-out inside the bot (no /stop, no pause). *(was 12.11)*
 
 ## 5. Messages (DRAFT for the owner to edit)
 [2026-11-04 20:56 SGT] Fixed wording, no AI. **Bold [brackets]** are filled in automatically or by the owner. Edit freely; the agreed text becomes the version the tests check.
 
 | When | Message | Button |
 |---|---|---|
-| /start, handle matched | Hi [parent]! 👋 Welcome to Experiment 1. For 7 days I'll send you two short reminders a day to give [child] a hug, at [morning time] and [evening time]. Just tap ✅ Done after the hug. **What we record:** your name, [child]'s name, your Telegram handle, and when you get each reminder and tap ✅ Done, so we can learn whether reminders help. Your data stays in Singapore and is deleted **[when? OPEN]**. | I agree |
+| /start, handle matched | Hi [parent]! 👋 Welcome to Experiment 1. For 7 days I'll send you two short reminders a day to give [child] a hug, at [morning time] and [evening time]. Just tap ✅ Done after the hug. **What we record:** your name, [child]'s name, your Telegram handle, and when you get each reminder and tap ✅ Done, so we can learn whether reminders help. Your data stays in Singapore and is deleted 30 days after the experiment ends. | I agree |
 | After I agree | Thank you, [parent]! You're all set. Your first reminder arrives on day 1 of the experiment. | none |
 | /start, no match | Hi! I can't find your Telegram handle on the list yet. Please contact **[owner's name]** to be added, then type /start again. | none |
 | Morning Nudge | Good morning, [parent] ☀️ Time for a hug with [child]. Tap ✅ Done after your hug. | ✅ Done |
@@ -59,7 +70,8 @@
 | ✅ Done (any time) | Thank you! ✅ Your hug with [child] is saved for this [morning / evening]. | none |
 | ✅ Done tapped again | Already saved, thank you! | none |
 | Typed words | Thanks! I only understand the ✅ Done button 🙂 | none |
-| After day 7 (OPEN: send or not?) | That's the end of the 7 days. Thank you for taking part, [parent]! | none |
+| /stop | You've stopped the hug reminders, [parent]. Thank you for taking part. If this was a mistake, contact **[owner's name]**. | none |
+| After day 7 (send: owner, 4 Nov) | That's the end of the 7 days. Thank you for taking part, [parent]! | none |
 
 ## 6. Data (Supabase)
 [2026-11-04 21:05 SGT] **Where:** a new Supabase project called "experiments" (Singapore), shared by all experiments; Experiment 1's tables live in their own **schema `exp1`** (a separate drawer), so the names below become `exp1.parents`, `exp1.nudges`, `exp1.events`, `exp1.settings` and the view `exp1.results`; the owner's SQL lines become `exp1.start(...)`, `exp1.reset_test_data()`, `exp1.test_mode(...)` and `exp1.send_now(...)`. Discarding the experiment = dropping the schema. Set-up note: Supabase must be told to make schema `exp1` reachable by the app (one setting, part of the go-live guide).
@@ -94,7 +106,7 @@ App may: add nothing (the owner adds parents); fill in `telegram_user_id` and `a
 | reminder_sent_at | When the reminder went (empty if not needed or refused) |
 | done_at | When ✅ Done was first tapped (empty = no tap) |
 | minutes_to_done | Minutes from Nudge to tap (worked out) |
-| status | waiting, or one of the six statuses of E1.6 |
+| status | waiting, or one of the seven statuses of E1.6 (short codes) |
 
 One row per parent, day and slot (no duplicates). App may: add a row; fill in the send times, `done_at` and `status` as the rules allow.
 
@@ -108,16 +120,16 @@ One row per parent, day and slot (no duplicates). App may: add a row; fill in th
 **Scheduling**
 1. A morning Nudge is due at the parent's morning time on each of the 7 days, not before; the same for evening.
 2. Nothing is sent before the start date or after day 7.
-3. A parent who hasn't joined gets nothing, and the Nudge is recorded as "not started".
+3. A parent who hasn't joined gets nothing, and the Nudge is recorded as **Not sent: hadn't started**.
 4. A Nudge is sent once only, even if the scheduler runs twice in a minute; if the scheduler is a few minutes late, it is still sent (up to 30 minutes late).
 
 **Reminder and statuses**
 5. No ✅ Done after 30 minutes → exactly one reminder; ✅ Done within 30 minutes → no reminder.
-6. ✅ Done at 0 to 30 minutes → "done on time" (30:00 counts).
-7. ✅ Done within 30 minutes of the reminder → "done after reminder sent".
-8. ✅ Done later → "responded after 30 mins".
-9. No tap by 60 minutes → "did not respond"; a later tap changes it to "responded after 30 mins", keeping both times.
-10. Telegram refuses a Nudge → "not delivered", no reminder.
+6. [2026-11-04 21:19 SGT] ✅ Done at any time up to and including 30:00 → **Acted on Nudge** (checked at 0:10 and exactly 30:00).
+7. ✅ Done after 30:00, up to and including 60:00 → **Did not act on Nudge. Acted on reminder** (checked at 30:01 and exactly 60:00), whichever message's button was tapped.
+8. ✅ Done after 60:00 → **Did not act on Nudge. Acted on reminder late** (checked at 60:01 and on the next day).
+9. No tap → **Did not act on Nudge. Did not act on reminder**; a later tap changes it to status 3, keeping both times.
+10. Telegram refuses a Nudge → **Not sent: Telegram refused**, no reminder.
 11. Two taps, or the same tap sent twice by Telegram, count once.
 12. A tap on yesterday's button counts for yesterday's Nudge, not today's.
 
@@ -131,6 +143,10 @@ One row per parent, day and slot (no duplicates). App may: add a row; fill in th
 17. Only the owner's database login can start, reset or switch test mode; the app cannot; the public has no access.
 18. Messages from anyone other than Telegram (wrong secret) are refused.
 
+**/stop** ([2026-11-04 21:19 SGT])
+19. /stop gets the confirmation reply; after it, no Nudges or reminders; the waiting Nudge and all later ones end as **Stopped**.
+20. /start after /stop does not restart the Nudges (see Q-B).
+
 ## 8. Risks
 - [2026-11-04 20:56 SGT] **Handles:** a parent with no Telegram handle, or a changed one, can't be matched; handled offline by the owner.
 - [2026-11-04 20:56 SGT] **No opt-out in the bot:** a reviewer may ask how a parent stops; the answer today is "mute or block in Telegram, or ask the owner". Recorded as "not delivered" if blocked.
@@ -141,7 +157,14 @@ One row per parent, day and slot (no duplicates). App may: add a row; fill in th
 - [2026-11-04 21:05 SGT] **O1 and O2 answered (owner, 4 Nov):** a separate `experiments` repo, so the main app's drift test no longer applies; new Vercel project and new bot for Experiment 1; one shared "experiments" Supabase project with a schema per experiment (the free plan allows only 2 projects).
 - SUPERSEDED [2026-11-04 21:05 SGT] [2026-11-04 20:56 SGT] **O1 Drift test.** The main app's drift test requires every document to be linked from `docs/SPEC.md`, so this folder fails it. Approve one change to the test: skip the "Experiment 1" folder, like `docs/archive/` (rule H5 needs your approval). Rec: yes.
 - SUPERSEDED [2026-11-04 21:05 SGT] [2026-11-04 20:56 SGT] **O2 Separate accounts?** For "nothing comingled": a new Supabase project, a new Vercel project (reading only this folder) and a new Telegram bot, rather than sharing the main app's. Rec: yes, all three (free).
-- [2026-11-04 20:56 SGT] **O3 Deleting data:** when are parents' data deleted (for the consent message)? Rec: 30 days after the experiment ends.
-- [2026-11-04 20:56 SGT] **O4 Message wording:** edit section 5; and send the "end of 7 days" message or not? Rec: send it.
-- [2026-11-04 20:56 SGT] **O5 Tests:** confirm the 18 tests in section 7.
+- [2026-11-04 21:19 SGT] **O3, O4 answered (owner, 4 Nov):** data deleted 30 days after the experiment ends; messages as drafted; the end-of-7-days message is sent. **O5:** tests 6 to 9 reworded with the owner's status names and exact boundaries; tests 19 and 20 added for /stop; to confirm.
+- [2026-11-04 21:19 SGT] **New questions (4 Nov):**
+  - **Q-A Your name in messages:** what name should the "can't find you" and /stop messages show?
+  - **Q-B /start after /stop:** rec: does **not** restart (a definitive signal); the parent contacts you instead.
+  - **Q-C Facilitators while testing:** rec: add them as parents marked "tester"; the reset keeps them; the results view leaves them out; you delete them before the start date.
+  - **Q-D Statuses 5 to 7:** confirm the names for the three "not sent / stopped" statuses.
+  - **Later, before go-live:** the bot's name and one-line description (for BotFather).
+- SUPERSEDED [2026-11-04 21:19 SGT] [2026-11-04 20:56 SGT] **O3 Deleting data:** when are parents' data deleted (for the consent message)? Rec: 30 days after the experiment ends.
+- SUPERSEDED [2026-11-04 21:19 SGT] [2026-11-04 20:56 SGT] **O4 Message wording:** edit section 5; and send the "end of 7 days" message or not? Rec: send it.
+- SUPERSEDED [2026-11-04 21:19 SGT] [2026-11-04 20:56 SGT] **O5 Tests:** confirm the 18 tests in section 7.
 - [2026-11-04 20:56 SGT] Taken as recommended unless you say otherwise: you type the parents into Supabase from a template; times fixed for the 7 days; one child name per parent; the results view is enough (no daily summary message).
