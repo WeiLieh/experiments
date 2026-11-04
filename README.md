@@ -8,7 +8,7 @@
 |---|---|
 | **What** | Hug Nudges on Telegram: 10 parents, 7 days, a reminder after 30 minutes |
 | **Folder** | [experiment-1/](experiment-1/SPEC.md) |
-| **Status** | [2026-11-04 21:54 SGT] Built and tested; not deployed yet ([go-live guide](experiment-1/GO-LIVE.md)) |
+| **Status** | [2026-11-04 22:09 SGT] Merged into `main`; not deployed yet. Go-live starts 5 Nov ([handoff pack](experiment-1/HANDOFF.md), [go-live guide](experiment-1/GO-LIVE.md)). Earlier: [2026-11-04 21:54 SGT] Built and tested; not deployed yet. SUPERSEDED [2026-11-04 22:09 SGT] |
 | **Supabase schema** | `exp1` (not created yet) |
 | **Started / ended** | Not started |
 

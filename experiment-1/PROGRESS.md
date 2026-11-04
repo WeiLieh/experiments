@@ -2,6 +2,17 @@
 
 One entry per session, newest first: Done / In progress / Next steps / Blockers.
 
+## [2026-11-04 22:09 SGT] Session 1, wrap-up: merged, handoff pack
+### Done
+- [2026-11-04 22:09 SGT] Owner merged pull request #2 into `main`.
+- [2026-11-04 22:09 SGT] Handoff pack written: [HANDOFF.md](HANDOFF.md) (where things stand, go-live checklist, the five settings, what's waiting on the owner, how to start the next session).
+### In progress
+- [2026-11-04 22:09 SGT] None.
+### Next steps
+- [2026-11-04 22:09 SGT] Owner: go-live step 1 (Supabase) on 5 Nov, then steps 2 to 9 with [HANDOFF.md](HANDOFF.md) as the checklist.
+### Blockers
+- [2026-11-04 22:09 SGT] None. Real-service proof still waits on go-live step 6.
+
 ## [2026-11-04 21:54 SGT] Session 1, continued: built and tested
 ### Done
 - [2026-11-04 21:54 SGT] Spec agreed in full (owner: "confirm everything").
