@@ -1,0 +1,2 @@
+parent_name,child_name,telegram_handle,morning_time,evening_time,is_tester
+Example Parent,Example Child,example_handle,07:00,19:00,true
