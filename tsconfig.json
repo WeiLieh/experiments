@@ -1,0 +1,25 @@
+// TypeScript settings for every experiment in this repo, used by `npm run typecheck`.
+// (This file may contain comments; TypeScript allows them here.)
+{
+  "compilerOptions": {
+    // Modern JavaScript, the kind Node.js 22 and Vercel run.
+    "target": "ES2023",
+    // Node.js's modern module system ("import ... from ...").
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    // Strict mode: TypeScript's strongest checks, to catch mistakes early.
+    "strict": true,
+    // Reading from a list by position may give "nothing": make us handle it.
+    "noUncheckedIndexedAccess": true,
+    // Don't re-check the type files inside installed libraries (faster).
+    "skipLibCheck": true,
+    // Treat "Tick.ts" and "tick.ts" as different, as Vercel's servers do.
+    "forceConsistentCasingInFileNames": true,
+    // Load the type descriptions for Node.js itself.
+    "types": ["node"],
+    // Only check; never write compiled files (Vercel compiles on its own).
+    "noEmit": true
+  },
+  // Every experiment's code and tests.
+  "include": ["experiment-*/**/*.ts"]
+}
