@@ -8,8 +8,9 @@
 |---|---|
 | **What** | Hug Nudges on Telegram: 10 parents, 7 days, a reminder after 30 minutes |
 | **Folder** | [experiment-1/](experiment-1/SPEC.md) |
-| **Status** | [2026-11-04 22:09 SGT] Merged into `main`; not deployed yet. Go-live starts 5 Nov ([handoff pack](experiment-1/HANDOFF.md), [go-live guide](experiment-1/GO-LIVE.md)). Earlier: [2026-11-04 21:54 SGT] Built and tested; not deployed yet. SUPERSEDED [2026-11-04 22:09 SGT] |
-| **Supabase schema** | `exp1` (not created yet) |
+| **Status** | [2026-11-05 12:29 SGT] Live in test mode: go-live steps 1 to 6 done; facilitator rehearsal next ([handoff pack](experiment-1/HANDOFF.md)). Earlier: [2026-11-04 22:09 SGT] Merged into `main`; not deployed yet. Go-live starts 5 Nov ([handoff pack](experiment-1/HANDOFF.md), [go-live guide](experiment-1/GO-LIVE.md)). Earlier: [2026-11-04 21:54 SGT] Built and tested; not deployed yet. SUPERSEDED [2026-11-04 22:09 SGT]. SUPERSEDED [2026-11-05 12:29 SGT] |
+| **Supabase schema** | [2026-11-05 12:29 SGT] `exp1` in project `experiments` (Singapore). Earlier: not created yet. SUPERSEDED [2026-11-05 12:29 SGT] |
+| **Bot / Vercel** | [2026-11-05 12:29 SGT] @FambuddyE1_bot; Vercel project `experiments` |
 | **Started / ended** | Not started |
 
 ## Running the checks

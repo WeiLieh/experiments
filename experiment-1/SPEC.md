@@ -4,7 +4,9 @@
 
 [2026-11-04 20:56 SGT] The agreed spec of **Experiment 1**, a very simplified hug-only version of the Family Habit Builder, kept entirely in this folder (owner, 4 Nov: "nothing outside"). The drafts and the owner's answers, with dates, are in [SPEC-draft-history.md](SPEC-draft-history.md). Rule IDs here start with **E1.** so they never clash with the main app's rule numbers (the draft called them 12.1 to 12.11; the mapping is in section 4).
 
-**Status:** [2026-11-04 21:54 SGT] **Built and tested, not deployed.** Code in this folder (`src/`, `api/`, `sql/`); 57 app tests and 53 database checks pass, covering the 23 tests in section 7. Next: the owner follows [GO-LIVE.md](GO-LIVE.md). Two small decisions made while building, for the owner to check: (1) a Nudge the scheduler reaches more than 30 minutes late is not sent and is recorded as "Not sent" (status 6), with the reason "too late" in the log; (2) the reset and "send now" work only before the start (`exp1.start` turns test mode off).
+**Status:** [2026-11-05 12:29 SGT] **Live in test mode (5 Nov).** Go-live steps 1 to 6 done on the real services: Supabase project `experiments` (Singapore), bot @FambuddyE1_bot, Vercel project `experiments`, webhook connected, alarm clock every minute; the owner's phone test ended `acted_on_reminder`. Next: rehearsal with the facilitators (section 10), then the 10 parents and the start date.
+
+SUPERSEDED [2026-11-05 12:29 SGT]: **Status:** [2026-11-04 21:54 SGT] **Built and tested, not deployed.** Code in this folder (`src/`, `api/`, `sql/`); 57 app tests and 53 database checks pass, covering the 23 tests in section 7. Next: the owner follows [GO-LIVE.md](GO-LIVE.md). Two small decisions made while building, for the owner to check: (1) a Nudge the scheduler reaches more than 30 minutes late is not sent and is recorded as "Not sent" (status 6), with the reason "too late" in the log; (2) the reset and "send now" work only before the start (`exp1.start` turns test mode off).
 
 SUPERSEDED [2026-11-04 21:54 SGT] **Status:** [2026-11-04 21:42 SGT] **Agreed in full** (owner, 4 Nov: "confirm everything": statuses 5 to 7, the 23 tests in section 7, and the recommendations in section 9). Building started on branch `claude/experiment-1-build`. Still to come from the owner: the start date, and the bot's name and description (before go-live).
 
@@ -170,6 +172,10 @@ One row per parent, day and slot (no duplicates). App may: add a row; fill in th
 23. [2026-11-04 21:34 SGT] The troubleshooting messages end with the WhatsApp group line.
 
 ## 8. Risks
+- [2026-11-05 12:29 SGT] **From go-live (5 Nov):**
+  - **Bot token seen in a screenshot** shared in the Claude chat (the address bar of the setWebhook page). The owner accepted this for now. Fix if wanted, ideally before the 10 parents join: BotFather → /mybots → API Token → Revoke; update `TELEGRAM_BOT_TOKEN` in Vercel; redeploy; run the setWebhook step again.
+  - **Legacy service_role key retires in early 2027** (Supabase notice). Fine for this pilot. A later experiment should use the new `sb_secret_` keys, which needs a small code change in `src/store.ts` (send the key in the `apikey` header only), tested first.
+  - **The Vercel project is named `experiments`** (team "Vibe Coding SMU course"), but it serves only Experiment 1. When discarding Experiment 1, delete this project; it is not shared.
 - [2026-11-04 21:56 SGT] **From the privacy and security review (4 Nov). Fixed:** the real names from the whiteboard were removed from the files (made-up names in tests and examples); the bot keeps no number or handle of someone not on the list; error messages in Vercel's logs no longer contain a parent's Telegram number; the secret checks use a constant-time comparison. **Open, for the owner to decide:**
   - **Handle matching:** whoever holds a listed handle when typing /start is linked and sees the child's name in the welcome. A mistyped or reused handle could reach a stranger. Rec: double-check each handle with the parent before loading it.
   - **Deleting after 30 days is a manual step** (GO-LIVE.md, section 10). Rec: put it in your calendar on the start day.

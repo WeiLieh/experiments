@@ -2,6 +2,24 @@
 
 One entry per session, newest first: Done / In progress / Next steps / Blockers.
 
+## [2026-11-05 12:29 SGT] Session 2: go-live steps 1 to 6 (live in test mode)
+### Done
+- [2026-11-05 12:29 SGT] Owner merged pull request #3 (handoff pack).
+- [2026-11-05 12:29 SGT] Step 1: Supabase project `experiments` recreated in Singapore (the first landed in Seoul); `001_exp1.sql` run; `exp1` exposed; "auto-expose new tables" switched off; tables and functions stay closed to public roles (0 exposed).
+- [2026-11-05 12:29 SGT] Step 2: bot @FambuddyE1_bot (display name FamBuddy E1), description and /start, /stop command list set in BotFather.
+- [2026-11-05 12:29 SGT] Step 3: reused Vercel project `experiments` (made on 4 Nov): Root Directory `experiment-1`, Node 22.x, Standard Protection, the 5 settings added (legacy service_role key), redeployed. `/api/telegram` answers 405 to a browser (expected).
+- [2026-11-05 12:29 SGT] Step 4: webhook set on `experiments-theta-liart.vercel.app`.
+- [2026-11-05 12:29 SGT] Step 5: pg_cron and pg_net on, scheduler running; `net._http_response` shows 200 every minute.
+- [2026-11-05 12:29 SGT] Step 6: owner's phone test passed: Nudge sent, reminder after about 3 minutes, ✅ Done at 3.3 minutes, status `acted_on_reminder`, `is_test` true.
+- [2026-11-05 12:29 SGT] GO-LIVE.md corrected with the lessons (region check, legacy key, 405 check, Node 22, Deployment Protection, main address, redeploy, drop_pending_updates, better scheduler check). Risks added to SPEC.md section 8. HANDOFF.md rewritten as the plan for the facilitator rehearsal.
+### In progress
+- [2026-11-05 12:29 SGT] Test mode is **on** (left on for the rehearsal). The owner's own tester row and test Nudge are still in the tables; `reset_test_data()` clears them.
+### Next steps
+- [2026-11-05 12:29 SGT] Owner: facilitator rehearsal this afternoon (step 7), following [HANDOFF.md](HANDOFF.md). Then load the 10 parents and set the start date.
+### Blockers
+- [2026-11-05 12:29 SGT] None.
+- [2026-11-05 12:29 SGT] Owner-accepted risk: the bot token appeared in a screenshot in the Claude chat (SPEC.md section 8).
+
 ## [2026-11-04 22:09 SGT] Session 1, wrap-up: merged, handoff pack
 ### Done
 - [2026-11-04 22:09 SGT] Owner merged pull request #2 into `main`.
