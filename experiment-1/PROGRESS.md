@@ -2,6 +2,19 @@
 
 One entry per session, newest first: Done / In progress / Next steps / Blockers.
 
+## [2026-11-13 21:41 SGT] Session 3: running the experiment (owner questions)
+### Done
+- [2026-11-13 21:41 SGT] Owner reports the experiment is **running** (start date not recorded here; it is in `exp1.settings`). Reminded the owner how reset, start and adding parents work (HANDOFF.md sections 3 and 5, GO-LIVE.md steps 8 to 10).
+- [2026-11-13 21:41 SGT] **One parent added after the start** (row inserted by the owner in Supabase; no name or handle recorded in Git). A late joiner gets only the days left; earlier slots are recorded as "not started".
+- [2026-11-13 21:41 SGT] **Found: the live `exp1.parents` has no `parent_name` or `child_name` columns.** The owner's colleague removed them for privacy. The code on `main` still reads both (every message, `exp1.results`, `send_now`'s error text), so messages may show "undefined" and `exp1.results` may have been dropped with the columns. Not confirmed: Claude can't see the live bot or database.
+### In progress
+- [2026-11-13 21:41 SGT] None.
+### Next steps
+- [2026-11-13 21:41 SGT] Owner: check what a parent's message shows ("undefined" or not); ask the colleague whether the code was changed and deployed outside Git (if so, push it); run `select table_name from information_schema.views where table_schema = 'exp1';` to see whether `exp1.results` still exists.
+- [2026-11-13 21:41 SGT] If messages show "undefined" and the owner says go: name-free wording (shown to the owner first), `exp1.results` rebuilt without names, SPEC.md, tests and `sql/001_exp1.sql` updated test-first, pull request, Vercel redeploy.
+### Blockers
+- [2026-11-13 21:41 SGT] The name-removal fix waits on the owner's checks above.
+
 ## [2026-11-05 12:29 SGT] Session 2: go-live steps 1 to 6 (live in test mode)
 ### Done
 - [2026-11-05 12:29 SGT] Owner merged pull request #3 (handoff pack).
